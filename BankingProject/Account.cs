@@ -8,14 +8,50 @@ namespace BankingProject
     {
         private static int NextId = 1;
         public int Id { get; private set; }
-        public double Balance { get; private set; } = 0;//to set balance to 0
+        public  double Balance { get; private set; } = 0;//to set balance to 0
         public string Description { get; set; }
 
+        //Hard way
+        private bool CheckAmountGreaterThanZero(double amount)
+        {
+            if (amount <= 0)
+            {
+                //Console.WriteLine("Amount must be greater than 0");
+                throw new Exception("Amount must be greater than 0");
+               //return false;
+            }
+            return true;
+        }
+
+        public static bool Transfer (double amount, Account FromAccount, Account ToAccount)
+        {
+            if(amount <= 0)
+            {
+                return false;
+            }
+            if (FromAccount == null || ToAccount == null)
+            {
+                return false;
+            }
+            var BeforeBalance = FromAccount.Balance;
+            var AfterBalance = FromAccount.Withdraw(amount);
+            if (BeforeBalance != AfterBalance + amount)
+            {
+                return false;
+            }
+            ToAccount.Deposit(amount);
+            return true;
+        }
+        //static/class method (more error prone because class is a type and types can be null)
+        public static double Deposit (double amount, Account acct)
+        {
+            return acct.Deposit(amount);
+        }
+        //instance method
         public double Deposit (double amount)
         {
-            if (amount <= 0) 
+            if (!CheckAmountGreaterThanZero(amount)) //(amount <= 0) was original double code
             {
-                Console.WriteLine($"Amount must be GT 0");
                 return Balance;
             }
             Balance = Balance + amount;
@@ -24,9 +60,8 @@ namespace BankingProject
 
         public double Withdraw(double amount)
         {
-            if(amount <= 0)//don't put negative number, will change to positive
+            if(!CheckAmountGreaterThanZero(amount)) //(amount <=0) was original double code
             {
-                Console.WriteLine($"Cannot withdraw negative amount");
                 return Balance;
             }
             if(Balance < amount)
@@ -52,7 +87,7 @@ namespace BankingProject
         //There is only one parameter (string) in the contruct above, need one below
         public Account() : this("New Account") 
         {
-         //Without : this("New Account"), the Id won't change.
+         // : this()  is pointing to a certain constructor
          //By doing this, you tell it what construct to use.
         }
     }

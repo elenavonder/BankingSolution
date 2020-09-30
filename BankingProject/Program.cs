@@ -14,10 +14,27 @@ namespace BankingProject
             acct2.print();
             acct2.Withdraw(50);
             acct2.print();
-            acct2.Deposit(-200);
+            try
+            {
+                acct2.Deposit(-200);
+                acct2.print();
+                acct2.Withdraw(-200);
+                acct2.print();
+            } catch (Exception ex)//Exception is type ex is variable
+            {
+                Console.WriteLine(ex.Message);
+            }
+            var success = Account.Transfer(200, acct2, acct1);
+            if (success)
+            {
+                Console.WriteLine("Your transfer worked");
+            }
+            else
+            {
+                Console.WriteLine("your transfer failed");
+            }
             acct2.print();
-            acct2.Withdraw(-1);
-            acct2.print();
+            acct1.print();
         }
     }
 }
