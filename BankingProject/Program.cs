@@ -6,6 +6,18 @@ namespace BankingProject
     {
         static void Main(string[] args)
         {
+            var sav1 = new Savings(0.12, "My Savings");
+            sav1.Deposit(1000);
+            sav1.print();
+            sav1.PayInterest(1);
+            sav1.print();
+
+            var sav2 = new SavingsComp(0.12, "My Composite Savings");
+            sav2.Deposit(1000);
+            sav2.print();
+            sav2.PayInterest(1);
+            sav2.print();
+
             var acct1 = new Account();
             acct1.print();
             var acct2 = new Account("MyChecking");
