@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BankingProject.Exceptions;
 
 namespace BankingProject
 {
@@ -66,8 +67,11 @@ namespace BankingProject
             }
             if(Balance < amount)
             {
-                Console.WriteLine($"Insufficient Funds!");
-                return Balance;
+                var isfex = new InsufficientFundsExceptions();
+                isfex.AccountId = this.Id;
+                isfex.AmountWithdraw = amount;
+                isfex.Balance = this.Balance;
+                throw isfex;
             }
             //same as Balance = Balance - amount;
             Balance -= amount; 
