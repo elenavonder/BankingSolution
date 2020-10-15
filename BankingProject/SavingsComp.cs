@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace BankingProject
-{
+{ //SAVINGS CLASS USING COMPOSITION
     class SavingsComp
     {
         public Account account { get; private set; } = null;
@@ -46,6 +46,7 @@ namespace BankingProject
             Console.WriteLine($"IntRate: [{this.InterestRate}], Balance: [{account.Balance}], Description: [{account.Description}]");
         }
 
+        //CONSTRUCTORS
         public SavingsComp(Double intrate, string description)
         {
             this.account = new Account(description);//call the account constructor first
