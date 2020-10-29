@@ -4,7 +4,7 @@ using System.Text;
 using BankingProject.Exceptions;
 
 namespace BankingProject
-{
+{ //abstract class means you cannot creatre an instance of the class
     class Account
     {
         //makes all Ids = 1 instead of starting at 0
